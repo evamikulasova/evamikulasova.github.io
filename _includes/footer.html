@@ -1,0 +1,25 @@
+<footer>
+  <div class="container-fluid">
+    <div class="row py-3">
+      <div class="col-sm-4 offset-sm-4">
+        <ul class="nav-stacked">
+          {% if site.email %}
+            <li class="em dib">
+              <a class="p-03 pl-0" href="mailto:{{ site.email }}" onmouseover="this.href=this.href.replace(/(g|h|j)/g,'');">Email</a>
+            </li>
+          {% endif %}
+          {% if site.social-links %}
+            {% for item in site.social-links %}
+              <li class="dib">
+                <a class="p-03" target="_blank" href="{{ item.url }}">{{ item.name }}</a>
+              </li>
+            {% endfor %}
+          {% endif %}
+        </ul>
+        {% if site.title %}
+          <small class="text-muted">&copy; {{ site.time | date: '%Y' }} {{ site.title }}</small>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</footer>

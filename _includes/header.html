@@ -1,0 +1,66 @@
+<!-- Get values from main index.html file -->
+{% assign ind = (site.pages | sort: "order" | where: "group" , "index" | where: "lang" , page.lang) %}
+{% assign index_title = ind[0].title %}
+{% assign index_subtitle = ind[0].subtitle %}
+{% assign index_url = ind[0].url %}
+
+<header class="hdr">
+  <div class="container-fluid">
+    <div class="row py-3">
+      <div class="col-xs-12 text-xs-center">
+        <div class="dib">
+
+          <!-- Site name -->
+          <div class="float-lg-left pb-1 pb-lg-0 pr-lg-2">
+            <a class="p-03" href="{{ index_url | replace:"index.html","" | prepend: site.baseurl }}">{{ index_title }}</a>
+          </div>
+          <!-- End of Site name -->
+
+          <!-- Main menu -->
+          <nav class="float-lg-left pb-1 pb-lg-0 pr-lg-2">
+            {% assign pages = site.pages | sort: "order" %}
+            {% for p in pages %}
+              {% if p.title and p.lang == page.lang and (p.group == "about" or p.group == "work" or p.group == "contact") %}
+                <!-- Detect current page by url -->
+                {% if (page.url == p.url) or (page.group == "project" and page.parent == p.children) %}
+                  <a class="p-03 active" href="{{ p.url | prepend: site.baseurl }}">{{ p.title }}</a>
+                {% else %}
+                  <a class="p-03" href="{{ p.url | prepend: site.baseurl }}">{{ p.title }}</a>
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+          </nav>
+          <!-- End of Main menu -->
+
+          <!-- Language menu -->
+          <nav class="float-lg-left">
+            {% assign counter = 0 %}
+            {% assign pages = (site.pages | sort: "order" | where: "group" , "index") %}
+            {% for p in pages %}
+              {% if page.group == "index" or page.group == "error" %}
+                {% if counter == 0 %}
+                  {% assign twin_url = "/" %}
+                {% else %}
+                  {% capture twin_url %}/{{ p.lang }}/{% endcapture %}
+                {% endif %}
+              {% else %}
+                {% assign twin = (site.pages | sort: "order" | where: "group" , page.group | where: "order" , page.order | where: "lang" , p.lang ) %}
+                {% assign twin_url = twin[0].url %} {% endif %}
+                {% if twin_url and p.lang %}
+                  <!-- Detect current page by language -->
+                  {% if page.lang == p.lang %}
+                    <a class="p-03 active" href="{{ twin_url | replace:" index.html "," " | prepend: site.baseurl }}">{{ p.language }}</a>
+                  {% else %}
+                    <a class="p-03" href="{{ twin_url | replace:" index.html "," " | prepend: site.baseurl }}">{{ p.language }}</a>
+                  {% endif %}
+                {% endif %}
+                {% assign counter=counter | plus:1 %}
+            {% endfor %}
+          </nav>
+          <!-- End of Language menu -->
+
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

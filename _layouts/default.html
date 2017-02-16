@@ -1,0 +1,37 @@
+---
+layout: compress
+---
+<!DOCTYPE html>
+{% if page.group == "index" or page.group == "work" or page.group == "project" %}
+  <html lang="{{ page.lang }}" itemtype="http://schema.org/WebPage" itemscope="">
+{% elsif page.group == "contact" %}
+  <html lang="{{ page.lang }}" itemtype="http://schema.org/ContactPage" itemscope="">
+{% elsif page.group == "about" %}
+  <html lang="{{ page.lang }}" itemtype="http://schema.org/AboutPage" itemscope="">
+{% else %}
+  <html lang="{{ page.lang }}">
+{% endif %}
+{% include head.html %}
+<!-- Add dev class while development -->
+{% if page.group %}
+  {% if site.development == true %}
+    <body class="{{ page.group }} dev">
+  {% else %}
+    <body class="{{ page.group }}">
+  {% endif %}
+{% else %}
+  {% if site.development == true %}
+    <body class="dev">
+  {% else %}
+    <body>
+  {% endif %}
+{% endif %}
+{% include header.html %}
+{{ content }}
+{% include footer.html %}
+<!-- JavaScript code placed at the end of the document so the pages load faster -->
+{% if site.development == false and site.google_analytics_tracking_id and site.google_analytics_tracking_id != "" %}
+  {% include google-analytics.html %}
+{% endif %}
+</body>
+</html>
