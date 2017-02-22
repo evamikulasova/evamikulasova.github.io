@@ -30,6 +30,7 @@ layout: compress
 {{ content }}
 {% include footer.html %}
 <!-- JavaScript code placed at the end of the document so the pages load faster -->
+<script src="{{ "/js/scripts.js" | prepend: site.baseurl }}"></script>
 {% if site.development == false and site.google_analytics_tracking_id and site.google_analytics_tracking_id != "" %}
   {% include google-analytics.html %}
 {% endif %}
