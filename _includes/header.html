@@ -17,12 +17,15 @@
           <!-- End of Site name -->
 
           <!-- Main menu -->
+
           <nav class="float-lg-left pb-1 pb-lg-0 pr-lg-2">
             {% assign pages = site.pages | sort: "order" %}
             {% for p in pages %}
-              {% if p.title and p.lang == page.lang and (p.group == "about" or p.group == "work" or p.group == "contact") %}
-                <!-- Detect current page by url -->
-                {% if (page.url == p.url) or (page.group == "project" and page.parent == p.children) %}
+              {% if p.title and p.lang == page.lang and (p.group == "about" or p.group == "painting" or p.group == "drawing" or p.group == "playground" or p.group == "contact") %}
+
+
+                <!-- Detect active page by url -->
+                {% if (page.url == p.url) or (page.group == p.children) %}
                   <a class="p-03 active" href="{{ p.url | prepend: site.baseurl }}">{{ p.title }}</a>
                 {% else %}
                   <a class="p-03" href="{{ p.url | prepend: site.baseurl }}">{{ p.title }}</a>

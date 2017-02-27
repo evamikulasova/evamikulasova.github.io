@@ -1,0 +1,17 @@
+<div class="row ixts">
+  {% assign pages = site.pages | sort: 'order' %}
+  {% for p in pages %}
+    {% if p.group == "painting-project" %}
+      {% if p.lang == page.lang and p.thumbnail and p.menu_exclude != true %}
+      <div class="col-xs-4 px-0">
+        <a href="{{ p.url | prepend: site.baseurl }}">
+            {% include image33vw.html basename=p.thumbnail alt=p.title %}
+            <div class="ctr">
+              <span class="fxt">{{ p.title }}</span>
+            </div>
+        </a>
+      </div>
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+</div>

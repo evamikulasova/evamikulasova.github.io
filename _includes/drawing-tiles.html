@@ -1,7 +1,7 @@
 <div class="row ixts">
   {% assign pages = site.pages | sort: 'order' %}
   {% for p in pages %}
-    {% if p.group == "project" or p.group == "work" %}
+    {% if p.group == "drawing-project" %}
       {% if p.lang == page.lang and p.thumbnail and p.menu_exclude != true %}
       <div class="col-xs-4 px-0">
         <a href="{{ p.url | prepend: site.baseurl }}">
